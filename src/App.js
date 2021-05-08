@@ -1,24 +1,63 @@
-import logo from './logo.svg';
 import './App.css';
+import React, {useEffect, useState} from "react";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
+import Home from "./components/home";
+import Login from "./components/login";
+import AuthService from "./services/auth";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+    const [currentUser, setCurrentUser] = useState(undefined)
+
+
+    useEffect(()=>{
+        const user = AuthService.getCurrentUser();
+        if(user){
+            setCurrentUser(user);
+        }
+    },[])
+
+    const logOut = function () {
+        AuthService.logout();
+    }
+
+
+
+    return (
+    <Router>
+        <div className="App">
+            <nav>
+                <ul>
+                    <li>
+                        <Link to="/">Home</Link>
+                    </li>
+                    {!currentUser ? (
+                    <>
+                    <li>
+                        <Link to="/login">Sign in</Link>
+                    </li>
+                    <li>
+                        <Link to="/register">Sign up</Link>
+                    </li>
+                    </>
+                    ) : (
+                        <li>
+                            <a href="/" onClick={logOut}>Logout</a>
+                        </li>
+                    )}
+                </ul>
+            </nav>
+            <Switch>
+                <Route exact path={["/", "/home"]} component={Home} />
+                <Route exact path="/login" component={Login} />
+            </Switch>
+        </div>
+    </Router>
   );
 }
 
