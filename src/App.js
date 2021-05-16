@@ -9,10 +9,14 @@ import {
 import Home from "./components/home";
 import Login from "./components/login";
 import AuthService from "./services/auth";
+import Profile from "./components/profile";
+import Warehouses from "./components/warehouses";
+import Products from "./components/products";
+import ProductForm from "./components/product-form";
 
 function App() {
 
-    const [currentUser, setCurrentUser] = useState(undefined)
+    const [currentUser, setCurrentUser] = useState()
 
 
     useEffect(()=>{
@@ -36,7 +40,7 @@ function App() {
                     <li>
                         <Link to="/">Home</Link>
                     </li>
-                    {!currentUser ? (
+                    {(!currentUser) ? (
                     <>
                     <li>
                         <Link to="/login">Sign in</Link>
@@ -46,15 +50,28 @@ function App() {
                     </li>
                     </>
                     ) : (
+                        <>
+                        <li>
+                            <Link to="/profile">Profile</Link>
+                        </li>
+                        {currentUser.roles.includes("ADMIN") && <li><Link to="/warehouses">Warehouses</Link></li>}
+                        {currentUser.roles.includes("ADMIN") && <li><Link to="/products">Products</Link></li>}
                         <li>
                             <a href="/" onClick={logOut}>Logout</a>
                         </li>
+                        </>
                     )}
                 </ul>
             </nav>
             <Switch>
                 <Route exact path={["/", "/home"]} component={Home} />
                 <Route exact path="/login" component={Login} />
+                <Route exact path="/profile" component={Profile} />
+                <Route exact path="/warehouses" component={Warehouses} />
+                <Route path="/products/:warehouseId" component={Products} />
+                <Route path="/products" component={Products} />
+                <Route path="/product/:productId" component={ProductForm} />
+                <Route path="/product-form/:warehouseId" component={ProductForm} />
             </Switch>
         </div>
     </Router>

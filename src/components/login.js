@@ -36,7 +36,7 @@ function Login(props) {
             }
             return json;
         }).then(() => {
-                props.history.push("/");
+                props.history.push("/profile");
                 window.location.reload();
         }).catch((error)=>{
             setFeedback(error.message);
@@ -55,7 +55,7 @@ function Login(props) {
             {loading && "Loading..."}
             {feedback && <div>{feedback}</div>}
         </div>
-    )
+    );
 
 }
 
