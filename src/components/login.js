@@ -2,8 +2,9 @@ import React from "react";
 import {useState} from "react";
 
 import AuthService from "../services/auth";
+import UserService from "../services/user";
 
-function Login(props) {
+export default function Login(props) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [loading, setLoading] = useState(false)
@@ -19,18 +20,7 @@ function Login(props) {
             password: password
         }
 
-        fetch("http://localhost:8080/auth/signin", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(loginRequest)
-        }).then(response => {
-            if(response.ok){
-                return response.json();
-            }
-            throw new Error("Špatně zadané údaje");
-        }).then(json => {
+        UserService.postDataAPI('auth/signin',loginRequest,"",true).then(json => {
             if (json.accessToken) {
                 AuthService.login(json);
             }
@@ -39,7 +29,7 @@ function Login(props) {
                 props.history.push("/profile");
                 window.location.reload();
         }).catch((error)=>{
-            setFeedback(error.message);
+            setFeedback(JSON.parse(error.message).message);
             setLoading(false);
         });
 
@@ -47,16 +37,19 @@ function Login(props) {
 
     return (
         <div>
-            <form onSubmit={onSubmitHandler}>
-                <input type={"text"} placeholder={"Username"} required={true} value={username} onChange={(e) => setUsername(e.target.value)}/>
-                <input type={"password"} placeholder={"Password"} required={true} value={password} onChange={(e) => setPassword(e.target.value)}/>
-                <input type={"submit"} value={"Sign in"}/>
-            </form>
-            {loading && "Loading..."}
-            {feedback && <div>{feedback}</div>}
+            <h2>Sign in</h2>
+            <div className={"container"} style={{width: "25%", paddingTop: "20px"}}>
+                <form onSubmit={onSubmitHandler}>
+                    <input type={"text"} placeholder={"Username"} required={true} value={username} onChange={(e) => setUsername(e.target.value)}/>
+                    <input type={"password"} placeholder={"Password"} required={true} value={password} onChange={(e) => setPassword(e.target.value)} style={{marginTop: "6px"}}/>
+                    <input type={"submit"} value={"Sign in"} className={"submitButton"}/>
+                </form>
+                <div>
+                {loading && "Loading..."}
+                {feedback && <div>{feedback}</div>}
+                </div>
+            </div>
         </div>
     );
 
 }
-
-export default Login;

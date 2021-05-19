@@ -17,7 +17,7 @@ export default function ProductForm(props) {
     useEffect(()=>{
         if(props.match.params.productId) {
             setLoading(true);
-            UserService.getProductAPI(props.match.params.productId).then(json => {
+            UserService.getDataAPI('product',props.match.params.productId).then(json => {
                 setProductId(json.id);
                 setProductName(json.productName);
                 setAmount(json.amount);
@@ -44,7 +44,7 @@ export default function ProductForm(props) {
             body = {id: productId,productName: productName,amount: amount,unitWeight: unitWeight,description: description,warehouseId: warehouseId}
         }
 
-        UserService.putProductAPI(body).then(response=>{
+        UserService.putDataAPI('product',body).then(response=>{
             setLoading(false);
             window.history.back();
         }).catch((err)=>{
@@ -71,11 +71,11 @@ export default function ProductForm(props) {
                     </div>
                     <div className="row">
                     <div className="col-15"><label htmlFor={"amount"}>Amount: </label></div>
-                    <div className="col-85"><input type={"text"} placeholder={"Amount"} id={"amount"} required={true} value={amount} onChange={(e) => setAmount(e.target.value)}/></div>
+                    <div className="col-85"><input type={"number"} placeholder={"Amount"} id={"amount"} required={true} value={amount} onChange={(e) => setAmount(e.target.value)}/></div>
                     </div>
                     <div className="row">
                     <div className="col-15"><label htmlFor={"weight"}>Unit weight: </label></div>
-                    <div className="col-85"><input type={"text"} placeholder={"Unit weight"} id={"weight"} required={true} value={unitWeight} onChange={(e) => setUnitWeight(e.target.value)}/></div>
+                    <div className="col-85"><input type={"number"} placeholder={"Unit weight"} id={"weight"} required={true} value={unitWeight} onChange={(e) => setUnitWeight(e.target.value)}/></div>
                     </div>
                     <div className="row">
                     <div className="col-15"><label htmlFor={"description"}>Description: </label></div>

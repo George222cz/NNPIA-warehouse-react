@@ -13,11 +13,14 @@ import Profile from "./components/profile";
 import Warehouses from "./components/warehouses";
 import Products from "./components/products";
 import ProductForm from "./components/product-form";
+import Transfers from "./components/transfers";
+import TransferForm from "./components/transfer-form";
+import NotFound from "./components/not-found";
+import Registration from "./components/registration";
 
 function App() {
 
     const [currentUser, setCurrentUser] = useState()
-
 
     useEffect(()=>{
         const user = AuthService.getCurrentUser();
@@ -29,8 +32,6 @@ function App() {
     const logOut = function () {
         AuthService.logout();
     }
-
-
 
     return (
     <Router>
@@ -51,14 +52,16 @@ function App() {
                     </>
                     ) : (
                         <>
-                        <li>
-                            <Link to="/profile">Profile</Link>
-                        </li>
-                        {currentUser.roles.includes("ADMIN") && <li><Link to="/warehouses">Warehouses</Link></li>}
-                        {currentUser.roles.includes("ADMIN") && <li><Link to="/products">Products</Link></li>}
-                        <li>
+                        {currentUser.roles.some(r=>["ROLE_USER","ROLE_WAREHOUSEMAN","ROLE_ADMIN"].includes(r)) && <li><Link to="/warehouses">Warehouses</Link></li>}
+                        {currentUser.roles.some(r=>["ROLE_USER","ROLE_WAREHOUSEMAN","ROLE_ADMIN"].includes(r)) && <li><Link to="/products">Products</Link></li>}
+                        {currentUser.roles.some(r=>["ROLE_ADMIN"].includes(r)) && <li><Link to="/transfers">Transfers</Link></li>}
+                        <li style={{float: "right"}}>
                             <a href="/" onClick={logOut}>Logout</a>
                         </li>
+                        <li style={{float: "right"}}>
+                            <Link to="/profile">Profile</Link>
+                        </li>
+                            {currentUser.roles.some(r=>["ROLE_WAREHOUSEMAN","ROLE_ADMIN"].includes(r)) && <li style={{float: "right"}}><Link to="/transfer-form">New transfer</Link></li>}
                         </>
                     )}
                 </ul>
@@ -66,12 +69,16 @@ function App() {
             <Switch>
                 <Route exact path={["/", "/home"]} component={Home} />
                 <Route exact path="/login" component={Login} />
+                <Route exact path="/register" component={Registration} />
                 <Route exact path="/profile" component={Profile} />
                 <Route exact path="/warehouses" component={Warehouses} />
+                <Route exact path="/transfers" component={Transfers} />
+                <Route exact path="/transfer-form" component={TransferForm} />
                 <Route path="/products/:warehouseId" component={Products} />
                 <Route path="/products" component={Products} />
                 <Route path="/product/:productId" component={ProductForm} />
                 <Route path="/product-form/:warehouseId" component={ProductForm} />
+                <Route component={NotFound} />
             </Switch>
         </div>
     </Router>
