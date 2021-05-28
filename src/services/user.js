@@ -1,6 +1,6 @@
 import authHeader from './auth-header';
 
-const API_URL = "http://localhost:8080/api/";
+const API_URL = "https://nnpia-warehouse.herokuapp.com/api/";
 
 class UserService {
 
