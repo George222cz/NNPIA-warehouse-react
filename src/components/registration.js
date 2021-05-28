@@ -1,9 +1,10 @@
 import React from "react";
 import {useState} from "react";
+import { useHistory } from "react-router-dom";
 
 import UserService from "../services/user";
 
-export default function Registration(props) {
+export default function Registration() {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
@@ -11,6 +12,7 @@ export default function Registration(props) {
     const [role, setRole] = useState("ROLE_USER")
     const [loading, setLoading] = useState(false)
     const [feedback, setFeedback] = useState(undefined)
+    let history = useHistory();
 
     const onSubmitHandler = event => {
         event.preventDefault();
@@ -31,7 +33,7 @@ export default function Registration(props) {
             return json;
         }).then(() => {
             setTimeout(() => {
-                props.history.push("/login");
+                history.push("/");
                 window.location.reload();
             }, 1500);
         }).catch((error)=>{

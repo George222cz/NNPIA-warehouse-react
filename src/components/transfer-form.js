@@ -3,7 +3,7 @@ import {useState} from "react";
 
 import UserService from "../services/user";
 
-export default function TransferForm(props) {
+export default function TransferForm() {
 
     const [error, setError] = useState(undefined);
     const [loading, setLoading] = useState(false);
@@ -27,8 +27,7 @@ export default function TransferForm(props) {
             setLoading(true);
             UserService.postDataAPI('transfer',undefined,'confirm/'+UserService.getUser().id+'/'+address,false).then(response=>{
                 setLoading(false);
-                props.history.push("/products");
-                window.location.reload();
+                window.history.back();
             }).catch((error)=>{
                 setError(error.message.length<50 ? error.message:JSON.parse(error.message).message);
                 setLoading(false);

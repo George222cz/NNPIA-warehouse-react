@@ -1,14 +1,16 @@
 import React from "react";
 import {useState} from "react";
+import { useHistory } from "react-router-dom";
 
 import AuthService from "../services/auth";
 import UserService from "../services/user";
 
-export default function Login(props) {
+export default function Login() {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [loading, setLoading] = useState(false)
     const [feedback, setFeedback] = useState(undefined)
+    let history = useHistory();
 
     const onSubmitHandler = event => {
         event.preventDefault();
@@ -26,7 +28,7 @@ export default function Login(props) {
             }
             return json;
         }).then(() => {
-            props.history.push("/profile");
+            history.push("/");
             window.location.reload();
         }).catch((error)=>{
             setFeedback(error.message.length<50 ? error.message:"Error: "+JSON.parse(error.message).message);
