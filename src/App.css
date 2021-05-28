@@ -1,14 +1,11 @@
 html,body{
-  height: 100%;
-  min-height: 100%;
+  min-height: 100vh;
   padding: 0;
 }
 
 #root {
   background-color: #3c3f41;
-  height: 100vh;
   min-height: 100vh;
-  padding: 0;
 }
 
 .App {
@@ -17,22 +14,15 @@ html,body{
   margin-right: auto;
   margin-left: auto;
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   border-radius: 5px;
   max-width: 1600px;
   -webkit-box-shadow: 0px 4px 22px 19px #2b2b2b;
   box-shadow: 0px 4px 22px 19px #2b2b2b;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.navbar-toggler {
+  display: none;
 }
 
 .App-header {
@@ -44,19 +34,6 @@ html,body{
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 thead {
@@ -94,6 +71,11 @@ li > *:hover {
   color: white;
 }
 
+img {
+  max-width:100%;
+  max-height:100%;
+}
+
 input, select, textarea{
   width: 100%;
   padding: 12px;
@@ -111,7 +93,6 @@ label {
   padding: 12px 12px 12px 0;
   display: inline-block;
 }
-
 
 .submitButton {
   background-color: #04AA6D;
@@ -163,25 +144,53 @@ label {
   margin-left: 10px;
 }
 
-td a {
+td a, td button {
   color: #2b2b2b;
   background-color: #cccccc;
   border-radius: 4px;
   padding: 2px;
-  min-width: 13px;
+  min-width: 24px;
+  min-height: 26px;
   display: inline-block;
   text-align: center;
   font-weight: bold;
+  border-style: none;
 }
 
-td a:hover {
+td a:hover, td button:hover {
   background-color: #acacac;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 600px) {
   .col-15, .col-85, input[type=submit] {
     width: 100%;
     margin-top: 0;
+  }
+}
+
+@media only screen and (max-width:680px) {
+  #navbar-toggler {
+    display: flex;
+    margin: 14px;
+  }
+  .navbar-collapse {
+    display: none;
+  }
+
+  #hiddenMenu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 0;
+    top: 54px;
+    width: 100%;
+    background-color: #4e5052;
+    align-items: center;
+  }
+
+  #hiddenMenu li{
+    width: 100%;
   }
 }
 

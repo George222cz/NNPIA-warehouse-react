@@ -4,10 +4,10 @@ import {Redirect} from "react-router-dom";
 
 import AuthService from "../services/auth";
 
-export default function Profile(props) {
+export default function Profile() {
 
-    const [redirect, setRedirect] = useState()
-    const [currentUser, setCurrentUser] = useState()
+    const [redirect, setRedirect] = useState(undefined)
+    const [currentUser, setCurrentUser] = useState(undefined)
 
     useEffect(()=>{
         const user = AuthService.getCurrentUser();
@@ -19,8 +19,9 @@ export default function Profile(props) {
         <div>
             {redirect && <Redirect to={redirect} />}
             {currentUser && <div>
-                <h2>Welcome {currentUser.username}</h2>
+                <h2 id={"welcome"}>Welcome {currentUser.username}</h2>
                 <p>Email: {currentUser.email}</p>
+                <p>Phone: {currentUser.phone}</p>
                 <p>Role: {currentUser.roles[0]}</p>
             </div>}
 

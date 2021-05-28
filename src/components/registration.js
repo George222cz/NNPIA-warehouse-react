@@ -10,12 +10,12 @@ export default function Registration(props) {
     const [phone, setPhone] = useState("")
     const [role, setRole] = useState("ROLE_USER")
     const [loading, setLoading] = useState(false)
-    const [feedback, setFeedback] = useState()
+    const [feedback, setFeedback] = useState(undefined)
 
     const onSubmitHandler = event => {
         event.preventDefault();
         setLoading(true);
-        setFeedback();
+        setFeedback(undefined);
 
         const registerRequest = {
             username: username,
@@ -25,7 +25,7 @@ export default function Registration(props) {
             role: role
         }
 
-        UserService.postDataAPI('auth/signup',registerRequest,"",false).then(json => {
+        UserService.postDataAPI('auth/signup',registerRequest,"",false,false).then(json => {
             setFeedback(json);
             setLoading(false);
             return json;
@@ -33,9 +33,9 @@ export default function Registration(props) {
             setTimeout(() => {
                 props.history.push("/login");
                 window.location.reload();
-            }, 2000);
+            }, 1500);
         }).catch((error)=>{
-            setFeedback(error.message);
+            setFeedback(error.message.length<50 ? error.message:JSON.parse(error.message).message);
             setLoading(false);
         });
     }
@@ -68,5 +68,4 @@ export default function Registration(props) {
             </div>
         </div>
     );
-
 }

@@ -1,22 +1,24 @@
 import authHeader from './auth-header';
 
+const API_URL = "http://localhost:8080/api/";
+
 class UserService {
 
-    getDataAPI(controller,optionalURL = ""){
-        return fetch("http://localhost:8080/api/"+controller+"/"+optionalURL, {
+    getDataAPI(controller,optionalURL = "", jsonResponse = true,jsonError = true){
+        return fetch(API_URL+controller+"/"+optionalURL, {
             method: 'GET',
             headers: authHeader()
-        }).then(response => {
+        }).then(async response => {
                 if (response.ok) {
-                    return response.json()
+                    return jsonResponse ? response.json() : response.text();
                 }
-                throw new Error(`Error: ${response.statusText}`)
+                throw new Error(jsonError ? JSON.stringify(await response.json()) : (await response.text()));
             }
         );
     }
 
-     postDataAPI(controller,body = undefined, optionalURL = "", jsonResponse = true){
-        return fetch("http://localhost:8080/api/"+controller+"/"+optionalURL, {
+     postDataAPI(controller,body = undefined, optionalURL = "", jsonResponse = true, jsonError = true){
+        return fetch(API_URL+controller+"/"+optionalURL, {
             method: 'POST',
             headers: authHeader(true),
             body: JSON.stringify(body)
@@ -24,35 +26,35 @@ class UserService {
                 if (response.ok) {
                     return jsonResponse ? response.json() : response.text();
                 }
-                throw new Error(jsonResponse ? JSON.stringify(await response.json()) : (await response.text()));
+                throw new Error(jsonError ? JSON.stringify(await response.json()) : (await response.text()));
             }
         );
     }
 
-    putDataAPI(controller,body, optionalURL = ""){
-        return fetch("http://localhost:8080/api/"+controller+"/"+optionalURL, {
+    putDataAPI(controller,body, optionalURL = "", jsonResponse = true, jsonError = true){
+        return fetch(API_URL+controller+"/"+optionalURL, {
             method: 'PUT',
             headers: authHeader(true),
             body: JSON.stringify(body)
-        }).then(response => {
+        }).then(async response => {
                 if (response.ok) {
-                    return response.text();
+                    return jsonResponse ? response.json() : response.text();
                 }
-                throw new Error(`Error: ${response.statusText}`)
+                throw new Error(jsonError ? JSON.stringify(await response.json()) : (await response.text()));
             }
         );
     }
 
-    deleteDataAPI(controller,body = undefined, optionalURL = ""){
-        return fetch("http://localhost:8080/api/"+controller+"/"+optionalURL, {
+    deleteDataAPI(controller,body = undefined, optionalURL = "", jsonResponse = true, jsonError = true){
+        return fetch(API_URL+controller+"/"+optionalURL, {
             method: 'DELETE',
             headers: authHeader(true),
             body: JSON.stringify(body)
-        }).then(response => {
+        }).then(async response => {
                 if (response.ok) {
-                    return response.json();
+                    return jsonResponse ? response.json() : response.text();
                 }
-                throw new Error(`Error: ${response.statusText}`)
+                throw new Error(jsonError ? JSON.stringify(await response.json()) : (await response.text()));
             }
         );
     }

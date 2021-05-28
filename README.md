@@ -1,12 +1,37 @@
-# Getting Started with Create React App
+# React frontend for Warehouse app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Warehouse app - Application for warehouse management.
+Warehouse app has users who manage warehouses. There are products in those warehouses. 
+These products can be added to transfers - forms for product transportation. (see Database model in backend README.md)
 
-## Available Scripts
+The purpose of this React frontend application is to provide user-friendly UI for warehouse app.   
+
+### Security
+Application has three not secured (public) endpoints:
+- ("/" or "/home") index or home page
+- ("/login") page for user login form
+- ("/register") page for user registration form
+
+All other communication with backend is already secured by JWT tokens.
+
+Users also have roles. The user can have the role of administrator or warehouseman or basic user.
+So for user and warehouseman roles some content is not available (Forbidden).
+For example: 
+- User - cannot see or creates new transfers.
+- Warehouseman - cannot see transfers but can create new one. Also, cannot create a new warehouse.
+- Admin - he's allowed to do everything.
+### App structure
+Application has 10 components. All communication with REST API backend is throw fetch methods.
+Application has three auxiliary services:
+- auth for logged user manipulation
+- auth-header for getting header with authentication token
+- user for better fetch REST API handling and providing of user info
+
+### Available Scripts
 
 In the project directory, you can run:
 
-### `npm start`
+#### `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -14,57 +39,10 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+##Final note
+This application is part of Warehouse app semester work for NNPIA (2021).
+For inspiration were used:
+- Spring Boot Security and working example JWT authentication https://github.com/petrfilip/spring-boot-jwt
+- Spring Boot JWT Authentication example with Spring Security & Spring Data JPA https://github.com/bezkoder/spring-boot-spring-security-jwt-authentication
+- React JWT Authentication (without Redux) example https://github.com/bezkoder/react-jwt-auth
+- And other repositories and public codes throw internet. All work was done by Bc. Jiří Dřímal.

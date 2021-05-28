@@ -20,7 +20,8 @@ import Registration from "./components/registration";
 
 function App() {
 
-    const [currentUser, setCurrentUser] = useState()
+    const [showMenu, setShowMenu] = useState(false);
+    const [currentUser, setCurrentUser] = useState(undefined);
 
     useEffect(()=>{
         const user = AuthService.getCurrentUser();
@@ -36,35 +37,38 @@ function App() {
     return (
     <Router>
         <div className="App">
-            <nav>
-                <ul>
-                    <li>
-                        <Link to="/">Home</Link>
-                    </li>
-                    {(!currentUser) ? (
-                    <>
-                    <li>
-                        <Link to="/login">Sign in</Link>
-                    </li>
-                    <li>
-                        <Link to="/register">Sign up</Link>
-                    </li>
-                    </>
-                    ) : (
-                        <>
-                        {currentUser.roles.some(r=>["ROLE_USER","ROLE_WAREHOUSEMAN","ROLE_ADMIN"].includes(r)) && <li><Link to="/warehouses">Warehouses</Link></li>}
-                        {currentUser.roles.some(r=>["ROLE_USER","ROLE_WAREHOUSEMAN","ROLE_ADMIN"].includes(r)) && <li><Link to="/products">Products</Link></li>}
-                        {currentUser.roles.some(r=>["ROLE_ADMIN"].includes(r)) && <li><Link to="/transfers">Transfers</Link></li>}
-                        <li style={{float: "right"}}>
-                            <a href="/" onClick={logOut}>Logout</a>
+            <nav className="navbar">
+                <button className="navbar-toggler" type="button" id={"navbar-toggler"} onClick={()=>setShowMenu(!showMenu)}>&#9776;</button>
+                <div className="navbar-collapse" id={showMenu ? "hiddenMenu":""}>
+                    <ul>
+                        <li>
+                            <Link to="/">Home</Link>
                         </li>
-                        <li style={{float: "right"}}>
-                            <Link to="/profile">Profile</Link>
-                        </li>
-                            {currentUser.roles.some(r=>["ROLE_WAREHOUSEMAN","ROLE_ADMIN"].includes(r)) && <li style={{float: "right"}}><Link to="/transfer-form">New transfer</Link></li>}
-                        </>
-                    )}
-                </ul>
+                        {!currentUser ? (
+                            <>
+                            <li>
+                                <Link to="/login">Sign in</Link>
+                            </li>
+                            <li>
+                                <Link to="/register">Sign up</Link>
+                            </li>
+                            </>
+                        ) : (
+                            <>
+                            {currentUser.roles.some(r=>["ROLE_USER","ROLE_WAREHOUSEMAN","ROLE_ADMIN"].includes(r)) && <li><Link to="/warehouses">Warehouses</Link></li>}
+                            {currentUser.roles.some(r=>["ROLE_USER","ROLE_WAREHOUSEMAN","ROLE_ADMIN"].includes(r)) && <li><Link to="/products">Products</Link></li>}
+                            {currentUser.roles.some(r=>["ROLE_ADMIN"].includes(r)) && <li><Link to="/transfers">Transfers</Link></li>}
+                            <li style={{float: "right"}}>
+                                <a href="/" onClick={logOut}>Logout</a>
+                            </li>
+                            <li style={{float: "right"}}>
+                                <Link to="/profile">Profile</Link>
+                            </li>
+                                {currentUser.roles.some(r=>["ROLE_WAREHOUSEMAN","ROLE_ADMIN"].includes(r)) && <li style={{float: "right"}}><Link to="/transfer-form">New transfer</Link></li>}
+                            </>
+                        )}
+                    </ul>
+                </div>
             </nav>
             <Switch>
                 <Route exact path={["/", "/home"]} component={Home} />

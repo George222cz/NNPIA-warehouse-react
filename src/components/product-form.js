@@ -5,19 +5,19 @@ import UserService from "../services/user";
 
 export default function ProductForm(props) {
 
-    const [error, setError] = useState();
+    const [error, setError] = useState(undefined);
     const [loading, setLoading] = useState(false);
     const [productId, setProductId] = useState("");
     const [productName, setProductName] = useState("");
-    const [amount, setAmount] = useState();
-    const [unitWeight, setUnitWeight] = useState();
+    const [amount, setAmount] = useState(0);
+    const [unitWeight, setUnitWeight] = useState(0);
     const [description, setDescription] = useState("");
     const [warehouseId, setWarehouseId] = useState("");
 
     useEffect(()=>{
         if(props.match.params.productId) {
             setLoading(true);
-            UserService.getDataAPI('product',props.match.params.productId).then(json => {
+            UserService.getDataAPI('product',props.match.params.productId,true,false).then(json => {
                 setProductId(json.id);
                 setProductName(json.productName);
                 setAmount(json.amount);
@@ -25,8 +25,8 @@ export default function ProductForm(props) {
                 setDescription(json.description);
                 setWarehouseId(json.warehouseId);
                 setLoading(false);
-            }).catch((err)=>{
-                setError(err.message);
+            }).catch((error)=>{
+                setError(error.message.length<50 ? error.message:JSON.parse(error.message).message);
                 setLoading(false);
             });
         }
@@ -44,11 +44,11 @@ export default function ProductForm(props) {
             body = {id: productId,productName: productName,amount: amount,unitWeight: unitWeight,description: description,warehouseId: warehouseId}
         }
 
-        UserService.putDataAPI('product',body).then(response=>{
+        UserService.putDataAPI('product',body,"",false,false).then(response=>{
             setLoading(false);
             window.history.back();
-        }).catch((err)=>{
-            setError(err.message);
+        }).catch((error)=>{
+            setError(error.message.length<50 ? error.message:JSON.parse(error.message).message);
             setLoading(false);
         });
     }
@@ -57,7 +57,7 @@ export default function ProductForm(props) {
         <div>
             <h2>Product form</h2>
             {loading && "Loading..."}
-            {error && <div>{error}</div>}
+            {error ? <h3 style={{color: "red"}}>{error}</h3>:
             <div className="container">
                 <form onSubmit={onSubmitHandler}>
                     {productId &&
@@ -71,11 +71,11 @@ export default function ProductForm(props) {
                     </div>
                     <div className="row">
                     <div className="col-15"><label htmlFor={"amount"}>Amount: </label></div>
-                    <div className="col-85"><input type={"number"} placeholder={"Amount"} id={"amount"} required={true} value={amount} onChange={(e) => setAmount(e.target.value)}/></div>
+                    <div className="col-85"><input type={"number"} min={1} placeholder={"Amount"} id={"amount"} required={true} value={amount} onChange={(e) => setAmount(e.target.value)}/></div>
                     </div>
                     <div className="row">
                     <div className="col-15"><label htmlFor={"weight"}>Unit weight: </label></div>
-                    <div className="col-85"><input type={"number"} placeholder={"Unit weight"} id={"weight"} required={true} value={unitWeight} onChange={(e) => setUnitWeight(e.target.value)}/></div>
+                    <div className="col-85"><input type={"number"} min={1} placeholder={"Unit weight"} id={"weight"} required={true} value={unitWeight} onChange={(e) => setUnitWeight(e.target.value)}/></div>
                     </div>
                     <div className="row">
                     <div className="col-15"><label htmlFor={"description"}>Description: </label></div>
@@ -87,8 +87,7 @@ export default function ProductForm(props) {
                     </div>
                     <div className="row"><input type={"submit"} className={"submitButton"} value={productId ? "Edit":"Add"}/></div>
                 </form>
-            </div>
-
+            </div>}
         </div>
     );
 }
