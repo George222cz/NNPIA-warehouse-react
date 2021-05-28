@@ -39,7 +39,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-##Final note
+## Final note
 This application is part of Warehouse app semester work for NNPIA (2021).
 For inspiration were used:
 - Spring Boot Security and working example JWT authentication https://github.com/petrfilip/spring-boot-jwt
