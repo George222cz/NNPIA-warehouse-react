@@ -4,8 +4,16 @@ Warehouse app - Application for warehouse management.
 Warehouse app has users who manage warehouses. There are products in those warehouses. 
 These products can be added to transfers - forms for product transportation. (see Database model in backend README.md)
 
-The purpose of this React frontend application is to provide user-friendly UI for warehouse app.   
+The purpose of this React frontend application is to provide user-friendly UI for warehouse app.
+#### Deploy info
+Frontend application is hosted on Webzdarma.cz:
+http://warehouse.euweb.cz/
 
+Backend application is deployed on Heroku: 
+https://nnpia-warehouse.herokuapp.com/
+
+The application should have some basic data in the database.
+- For login try username and password: **admin**
 ### Security
 Application has three not secured (public) endpoints:
 - ("/" or "/home") index or home page

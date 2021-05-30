@@ -13,6 +13,13 @@ export default function Home() {
                     <br/>
                     The purpose of this React frontend application is to provide user-friendly UI for warehouse app.
                 </div>
+                <h3>Deploy info</h3>
+                <div>
+                Frontend application is hosted on Webzdarma.cz: <a href={"http://warehouse.euweb.cz/"}>http://warehouse.euweb.cz/</a><br/>
+                Backend application is deployed on Heroku: <a href={"https://nnpia-warehouse.herokuapp.com/"}>https://nnpia-warehouse.herokuapp.com/</a><br/>
+                The application should have some basic data in the database.<br/>
+                - For login try username and password: <b>admin</b>
+                </div>
                 <h2>Database model</h2>
                 <img src={"./db.png"} alt={"Database model"}/>
                 <h2>Security</h2>
