@@ -12,7 +12,7 @@ export default function ProductForm(props) {
     const [amount, setAmount] = useState(0);
     const [unitWeight, setUnitWeight] = useState(0);
     const [description, setDescription] = useState("");
-    const [warehouseId, setWarehouseId] = useState("");
+    const [warehouseId, setWarehouseId] = useState(0);
 
     useEffect(()=>{
         if(props.match.params.productId) {
@@ -56,7 +56,7 @@ export default function ProductForm(props) {
     return (
         <div>
             <h2>Product form</h2>
-            {loading && "Loading..."}
+            {loading ? "Loading...": <br/>}
             {error ? <h3 style={{color: "red"}}>{error}</h3>:
             <div className="container">
                 <form onSubmit={onSubmitHandler}>
@@ -71,7 +71,7 @@ export default function ProductForm(props) {
                     </div>
                     <div className="row">
                     <div className="col-15"><label htmlFor={"amount"}>Amount: </label></div>
-                    <div className="col-85"><input type={"number"} min={1} placeholder={"Amount"} id={"amount"} required={true} value={amount} onChange={(e) => setAmount(e.target.value)}/></div>
+                    <div className="col-85"><input type={"number"} min={0} placeholder={"Amount"} id={"amount"} required={true} value={amount} onChange={(e) => setAmount(e.target.value)}/></div>
                     </div>
                     <div className="row">
                     <div className="col-15"><label htmlFor={"weight"}>Unit weight: </label></div>

@@ -44,7 +44,7 @@ export default function Registration() {
 
     return (
         <div>
-            <h2>Sign up</h2>
+            <h2>Sign up</h2><br/>
             <div className={"container"} style={{width: "25%", paddingTop: "20px"}}>
                 <form onSubmit={onSubmitHandler}>
                     <label htmlFor={"Username"}>Username: </label>

@@ -1,11 +1,9 @@
 import authHeader from './auth-header';
 
-const API_URL = "https://nnpia-warehouse.herokuapp.com/api/";
-
 class UserService {
 
     getDataAPI(controller,optionalURL = "", jsonResponse = true,jsonError = true){
-        return fetch(API_URL+controller+"/"+optionalURL, {
+        return fetch(process.env.REACT_APP_API_URL+controller+"/"+optionalURL, {
             method: 'GET',
             headers: authHeader()
         }).then(async response => {
@@ -18,7 +16,7 @@ class UserService {
     }
 
      postDataAPI(controller,body = undefined, optionalURL = "", jsonResponse = true, jsonError = true){
-        return fetch(API_URL+controller+"/"+optionalURL, {
+        return fetch(process.env.REACT_APP_API_URL+controller+"/"+optionalURL, {
             method: 'POST',
             headers: authHeader(true),
             body: JSON.stringify(body)
@@ -32,7 +30,7 @@ class UserService {
     }
 
     putDataAPI(controller,body, optionalURL = "", jsonResponse = true, jsonError = true){
-        return fetch(API_URL+controller+"/"+optionalURL, {
+        return fetch(process.env.REACT_APP_API_URL+controller+"/"+optionalURL, {
             method: 'PUT',
             headers: authHeader(true),
             body: JSON.stringify(body)
@@ -46,7 +44,7 @@ class UserService {
     }
 
     deleteDataAPI(controller,body = undefined, optionalURL = "", jsonResponse = true, jsonError = true){
-        return fetch(API_URL+controller+"/"+optionalURL, {
+        return fetch(process.env.REACT_APP_API_URL+controller+"/"+optionalURL, {
             method: 'DELETE',
             headers: authHeader(true),
             body: JSON.stringify(body)

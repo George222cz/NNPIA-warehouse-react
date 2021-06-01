@@ -17,6 +17,7 @@ import Transfers from "./components/transfers";
 import TransferForm from "./components/transfer-form";
 import NotFound from "./components/not-found";
 import Registration from "./components/registration";
+import ProductsList from "./components/products-list";
 
 function App() {
 
@@ -58,6 +59,7 @@ function App() {
                             {currentUser.roles.some(r=>["ROLE_USER","ROLE_WAREHOUSEMAN","ROLE_ADMIN"].includes(r)) && <li><Link to="/warehouses">Warehouses</Link></li>}
                             {currentUser.roles.some(r=>["ROLE_USER","ROLE_WAREHOUSEMAN","ROLE_ADMIN"].includes(r)) && <li><Link to="/products">Products</Link></li>}
                             {currentUser.roles.some(r=>["ROLE_ADMIN"].includes(r)) && <li><Link to="/transfers">Transfers</Link></li>}
+                            {currentUser.roles.some(r=>["ROLE_ADMIN"].includes(r)) && <li><Link to="/products-list">Products List</Link></li>}
                             <li style={{float: "right"}}>
                                 <a href="/" onClick={logOut}>Logout</a>
                             </li>
@@ -78,6 +80,7 @@ function App() {
                 <Route exact path="/warehouses" component={Warehouses} />
                 <Route exact path="/transfers" component={Transfers} />
                 <Route exact path="/transfer-form" component={TransferForm} />
+                <Route exact path="/products-list" component={ProductsList} />
                 <Route path="/products/:warehouseId" component={Products} />
                 <Route path="/products" component={Products} />
                 <Route path="/product/:productId" component={ProductForm} />

@@ -19,7 +19,7 @@ export default function Profile() {
         <div>
             {redirect && <Redirect to={redirect} />}
             {currentUser && <div>
-                <h2 id={"welcome"}>Welcome {currentUser.username}</h2>
+                <h2 id={"welcome"}>Welcome {currentUser.username}</h2><br/>
                 <p>Email: {currentUser.email}</p>
                 <p>Phone: {currentUser.phone}</p>
                 <p>Role: {currentUser.roles[0]}</p>

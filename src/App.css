@@ -47,6 +47,10 @@ nav {
   border: 1px solid #2E2E2E;
 }
 
+h2 {
+  margin-bottom: 2px;
+}
+
 ul {
   list-style-type: none;
   overflow: hidden;

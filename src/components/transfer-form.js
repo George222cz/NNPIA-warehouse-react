@@ -25,7 +25,7 @@ export default function TransferForm() {
         event.preventDefault();
         if(window.confirm("Are you sure?")){
             setLoading(true);
-            UserService.postDataAPI('transfer',undefined,'confirm/'+UserService.getUser().id+'/'+address,false).then(response=>{
+            UserService.postDataAPI('transfer',address,'confirm/'+UserService.getUser().id,false).then(response=>{
                 setLoading(false);
                 window.history.back();
             }).catch((error)=>{
@@ -60,7 +60,7 @@ export default function TransferForm() {
     return (
         <div>
             <h2>Transfer form</h2>
-            {loading && "Loading..."}
+            {loading ? "Loading...": <br/>}
             {error ? <h3 style={{color: "red"}}>{error}</h3>:
             <div className="container">
                 {content && (content.length===0 ? <div>Empty</div> :

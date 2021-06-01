@@ -75,7 +75,7 @@ export default function Products(props) {
     return (
         <div>
             <h2>Products{props.location.state && " of \""+props.location.state.warehouseName+"\""}</h2>
-            {loading && "Loading..."}
+            {loading ? "Loading...": <br/>}
             {error && <h3 style={{color: "red"}}>{error}</h3>}
             <div className={"container"}>
                 <div style={{marginBottom: "10px"}}>{props.match.params.warehouseId && "This warehouse has id: "+warehouseId}</div>

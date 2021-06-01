@@ -42,8 +42,8 @@ export default function Warehouses() {
     return (
         <div>
             <h2>Warehouses</h2>
+            {loading ? "Loading...": <br/>}
             <div className={"container"}>
-                {loading && "Loading..."}
                 {error ? <h3 style={{color: "red"}}>{error}</h3>:<>
                     {content && (content.length===0 ? <div>Empty</div> :
                     <div style={{marginBottom: "10px"}}><table style={{width:"100%"}}>

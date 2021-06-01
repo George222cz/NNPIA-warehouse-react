@@ -20,9 +20,9 @@ export default function Home() {
                 The application should have some basic data in the database.<br/>
                 - For login try username and password: <b>admin</b>
                 </div>
-                <h2>Database model</h2>
+                <h2>Database model</h2><br/>
                 <img src={"./db.png"} alt={"Database model"}/>
-                <h2>Security</h2>
+                <h2>Security</h2><br/>
                 <div>
                     Application has three not secured (public) endpoints:<br/>
                     - ("/" or "/home") index or home page<br/>
@@ -38,7 +38,7 @@ export default function Home() {
                     - Warehouseman - cannot see transfers but can create new one. Also, cannot create a new warehouse.<br/>
                     - Admin - he's allowed to do everything.
                 </div>
-                <h2>App structure</h2>
+                <h2>App structure</h2><br/>
                 <div>
                     Application has 10 components. All communication with REST API backend is throw fetch methods.<br/>
                     Application has three auxiliary services:<br/>
@@ -46,7 +46,7 @@ export default function Home() {
                     - auth-header for getting header with authentication token<br/>
                     - user for better fetch REST API handling and providing of user info<br/>
                 </div>
-                <h2>Final note</h2>
+                <h2>Final note</h2><br/>
                 <div>
                     This application is part of Warehouse app semester work for NNPIA (2021).<br/>
                     For inspiration were used:<br/>

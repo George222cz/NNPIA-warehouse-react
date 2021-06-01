@@ -38,7 +38,7 @@ export default function Login() {
 
     return (
         <div>
-            <h2>Sign in</h2>
+            <h2>Sign in</h2><br/>
             <div className={"container"} style={{width: "25%", paddingTop: "20px"}}>
                 <form onSubmit={onSubmitHandler}>
                     <input type={"text"} placeholder={"Username"} id={"username"} required={true} value={username} onChange={(e) => setUsername(e.target.value)}/>
