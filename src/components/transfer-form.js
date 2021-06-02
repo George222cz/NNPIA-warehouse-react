@@ -70,10 +70,10 @@ export default function TransferForm() {
                             <thead><tr><td>Name</td><td>Amount</td><td>Add</td><td>Remove</td></tr></thead><tbody>
                                 {content.map((item,index)=>
                                 <tr key={index} >
-                                    <td>{item.key.productName}</td>
-                                    <td>{item.value}</td>
-                                    <td><button onClick={()=>handleAddProductTransfer(item.key.id)}>+</button></td>
-                                    <td><button onClick={()=>handleRemoveProductTransfer(item.key.id)}>-</button></td>
+                                    <td>{item.productName}</td>
+                                    <td>{item.amount}</td>
+                                    <td><button onClick={()=>handleAddProductTransfer(item.productId)}>+</button></td>
+                                    <td><button onClick={()=>handleRemoveProductTransfer(item.productId)}>-</button></td>
                                 </tr>)}
                         </tbody></table>
                     </div>
