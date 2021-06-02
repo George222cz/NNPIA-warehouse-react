@@ -33,7 +33,7 @@ export default function Registration() {
             return json;
         }).then(() => {
             setTimeout(() => {
-                history.push("/");
+                history.push("/login");
                 window.location.reload();
             }, 1500);
         }).catch((error)=>{

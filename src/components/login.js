@@ -28,7 +28,7 @@ export default function Login() {
             }
             return json;
         }).then(() => {
-            history.push("/");
+            history.push("/profile");
             window.location.reload();
         }).catch((error)=>{
             setFeedback(error.message.length<50 ? error.message:"Error: "+JSON.parse(error.message).message);
